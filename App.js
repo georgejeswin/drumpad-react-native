@@ -1,6 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Audio } from 'expo-av';
 
 const drumKit={
   '1':require('./assets/1.mp3'),
@@ -24,25 +24,43 @@ const colors={
 }
 
 export default function App() {
+  const playSound=async(drumKitSound)=>{
+    try {
+      const soundObj=new Audio.Sound();
+
+      const path=drumKit[drumKitSound];
+      await soundObj.loadAsync(path);
+      await soundObj.playAsync().then(status=>{
+        setTimeout(()=>{
+          soundObj.unloadAsync().then(s=>{
+            console.log(s);
+          })
+        },status.durationMillis)
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.rowContainer}>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('1')}
         style={[{
           backgroundColor:colors[1]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('2')}
         style={[{
           backgroundColor:colors[2]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('3')}
         style={[{
           backgroundColor:colors[3]
         },styles.button]}
@@ -51,21 +69,21 @@ export default function App() {
       </View>
       <View style={styles.rowContainer}>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('4')}
         style={[{
           backgroundColor:colors[4]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('5')}
         style={[{
           backgroundColor:colors[5]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('6')}
         style={[{
           backgroundColor:colors[6]
         },styles.button]}
@@ -74,21 +92,21 @@ export default function App() {
       </View>
       <View style={styles.rowContainer}>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('7')}
         style={[{
           backgroundColor:colors[2]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('8')}
         style={[{
           backgroundColor:colors[4]
         },styles.button]}
         >
         </TouchableOpacity>
         <TouchableOpacity 
-        onPress={()=>{}}
+        onPress={()=>playSound('9')}
         style={[{
           backgroundColor:colors[3]
         },styles.button]}
